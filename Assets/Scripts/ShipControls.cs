@@ -11,6 +11,7 @@ public class ShipControls : MonoBehaviour
     float acceleration=.1f;
     public int maxHealth = 100;
     int currentHealth;
+    Vector2 velocityV;
     public int Health
     {
         get {return currentHealth;}
@@ -23,27 +24,36 @@ public class ShipControls : MonoBehaviour
     {
         currentHealth = maxHealth;
         rigidbody2D = GetComponent<Rigidbody2D>();
+        velocityV.x = 0.0f;
+        velocityV.y = 0.0f;
     }
+
+    
+    
+   
 
     // Update is called once per frame
     void Update()
     {
+        //change direction
         float rotation = rigidbody2D.rotation;
         float horizontal = Input.GetAxis("Horizontal");
-
-        if (horizontal > 0) rotation -= rotationSpeed * Time.deltaTime;
-        else if (horizontal < 0) rotation += rotationSpeed * Time.deltaTime;
+        rotation -= rotationSpeed * Time.deltaTime * horizontal;
         rigidbody2D.SetRotation(rotation);
 
+        //change position
         Vector2 vector = rigidbody2D.position;
-
-
         float v = Input.GetAxis("Vertical");
-        if (v > 0) velocity += acceleration;
-        else if (v < 0) velocity -= acceleration;
+        //velocity += acceleration * v;
         Vector2 forward = transform.up;
-        vector = vector + forward * velocity * Time.deltaTime;
+        //vector = vector + forward * velocity * Time.deltaTime;
+        //rigidbody2D.MovePosition(vector);
+
+        velocityV += v * forward * acceleration;
+        vector += velocityV * Time.deltaTime;
         rigidbody2D.MovePosition(vector);
+
+
 
     }
 
