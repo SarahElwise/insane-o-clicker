@@ -17,7 +17,6 @@ public class ShipControls : MonoBehaviour
         get {return currentHealth;}
         set {currentHealth = value;}
     }
-    float velocity = 0.0f;
 
     // Start is called before the first frame update
     void Start()
@@ -27,11 +26,7 @@ public class ShipControls : MonoBehaviour
         velocityV.x = 0.0f;
         velocityV.y = 0.0f;
     }
-
     
-    
-   
-
     // Update is called once per frame
     void Update()
     {
@@ -42,19 +37,13 @@ public class ShipControls : MonoBehaviour
         rigidbody2D.SetRotation(rotation);
 
         //change position
-        Vector2 vector = rigidbody2D.position;
+        Vector2 position = rigidbody2D.position;
         float v = Input.GetAxis("Vertical");
-        //velocity += acceleration * v;
         Vector2 forward = transform.up;
-        //vector = vector + forward * velocity * Time.deltaTime;
-        //rigidbody2D.MovePosition(vector);
-
         velocityV += v * forward * acceleration;
-        vector += velocityV * Time.deltaTime;
-        rigidbody2D.MovePosition(vector);
-
-
-
+        position += velocityV * Time.deltaTime;
+        rigidbody2D.MovePosition(position);
+        
     }
 
    
