@@ -30,12 +30,9 @@ public class ShipControls : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float vertical=0;
-        //controls
-        float horizontal = Input.GetAxis("Horizontal");
-        if (horizontal == 0)
-            vertical = Input.GetAxis("Vertical");
 
+        float horizontal = Input.GetAxis("Horizontal");
+        float vertical = Input.GetAxis("Vertical");
 
         //change direction
         float rotation = rigidbody2D.rotation;
@@ -43,16 +40,29 @@ public class ShipControls : MonoBehaviour
         rigidbody2D.SetRotation(rotation);
 
 
-
-        //change position
+        //position controls
         Vector2 position = rigidbody2D.position;
         Vector2 forward = transform.up;
         velocityV += vertical * forward * acceleration;
-        velocityV.x = Mathf.Clamp(velocityV.x, -speedLimit, speedLimit);
-        velocityV.y = Mathf.Clamp(velocityV.y, -speedLimit, speedLimit);
         position += velocityV * Time.deltaTime;
         rigidbody2D.MovePosition(position);
-    }
 
-   
+
+        if (vertical != 1 && velocityV.x != 0 && velocityV.y != 0)
+        {
+            Debug.Log("Start slowing down" + forward);
+            Vector2 slowdownFactor = forward * .05f;
+
+
+            if (Mathf.Abs(slowdownFactor.x) > Mathf.Abs(velocityV.x))
+                slowdownFactor.x = velocityV.x;
+
+            if (Mathf.Abs(slowdownFactor.y) > Mathf.Abs(velocityV.y))
+                slowdownFactor.y = velocityV.y;
+
+            velocityV -= slowdownFactor;
+        }
+        
+    }
+    
 }
