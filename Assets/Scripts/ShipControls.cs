@@ -5,10 +5,10 @@ using UnityEngine;
 public class ShipControls : MonoBehaviour
 {
     Rigidbody2D rigidbody2D;
-    float rotationSpeed = 200.0f;
+    public float rotationSpeed = 200.0f;
     float rotation;
-    float speedLimit;
-    float acceleration=.1f;
+    public float speedLimit = 4f;
+    public float acceleration=.1f;
     public int maxHealth = 100;
     int currentHealth;
     Vector2 velocityV;
@@ -30,20 +30,28 @@ public class ShipControls : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        float vertical=0;
+        //controls
+        float horizontal = Input.GetAxis("Horizontal");
+        if (horizontal == 0)
+            vertical = Input.GetAxis("Vertical");
+
+
         //change direction
         float rotation = rigidbody2D.rotation;
-        float horizontal = Input.GetAxis("Horizontal");
         rotation -= rotationSpeed * Time.deltaTime * horizontal;
         rigidbody2D.SetRotation(rotation);
 
+
+
         //change position
         Vector2 position = rigidbody2D.position;
-        float v = Input.GetAxis("Vertical");
         Vector2 forward = transform.up;
-        velocityV += v * forward * acceleration;
+        velocityV += vertical * forward * acceleration;
+        velocityV.x = Mathf.Clamp(velocityV.x, -speedLimit, speedLimit);
+        velocityV.y = Mathf.Clamp(velocityV.y, -speedLimit, speedLimit);
         position += velocityV * Time.deltaTime;
         rigidbody2D.MovePosition(position);
-        
     }
 
    
