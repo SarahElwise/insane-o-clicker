@@ -5,7 +5,7 @@ using UnityEngine;
 public class MoonOrbitScript : MonoBehaviour
 {
     public float speed;
-    public GameObject originatorPlanet;
+    public GameObject originatorPlanet; //what it is rotating around
     private Vector3 center;
 
     private void Start()

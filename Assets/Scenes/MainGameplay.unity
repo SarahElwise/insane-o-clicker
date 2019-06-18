@@ -230,6 +230,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2090191783589569567, guid: 3055186d5b030e4439f7110191e17b0e,
+        type: 3}
+      propertyPath: sceneName
+      value: RPG World Scene
+      objectReference: {fileID: 0}
     - target: {fileID: 1404922443443404075, guid: 3055186d5b030e4439f7110191e17b0e,
         type: 3}
       propertyPath: m_Name
