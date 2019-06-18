@@ -50,7 +50,6 @@ public class ShipControls : MonoBehaviour
 
         if (vertical != 1 && velocityV.x != 0 && velocityV.y != 0)
         {
-            Debug.Log("Start slowing down" + forward);
             Vector2 slowdownFactor = forward * .05f;
 
 
@@ -62,6 +61,7 @@ public class ShipControls : MonoBehaviour
 
             velocityV -= slowdownFactor;
         }
+        Debug.Log(velocityV);
         
     }
     
