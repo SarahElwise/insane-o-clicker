@@ -48,9 +48,9 @@ public class ShipControls : MonoBehaviour
         rigidbody2D.MovePosition(position);
 
 
-        if (vertical != 1 && velocityV.x != 0 && velocityV.y != 0)
+        if (vertical != 1 && (velocityV.x != 0 || velocityV.y != 0))
         {
-            Vector2 slowdownFactor = forward * .05f;
+            Vector2 slowdownFactor = velocityV * .01f;
 
 
             if (Mathf.Abs(slowdownFactor.x) > Mathf.Abs(velocityV.x))
@@ -59,7 +59,7 @@ public class ShipControls : MonoBehaviour
             if (Mathf.Abs(slowdownFactor.y) > Mathf.Abs(velocityV.y))
                 slowdownFactor.y = velocityV.y;
 
-            velocityV -= slowdownFactor;
+            velocityV = velocityV - slowdownFactor;
         }
         Debug.Log(velocityV);
         
